@@ -2,126 +2,148 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion à Roblox</title>
+    <title>Navigation Windows 12 - Samsung Style</title>
     <style>
+        :root {
+            --bg: #000;
+            --win-blue: #0078d4;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
         body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* Image de fond */
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://wallpapers.com/images/hd/roblox-game-collage-8j17h2f97iqhzyj8.jpg');
-            background-size: cover;
-            background-position: center;
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        .login-container {
-            background-color: rgba(30, 31, 33, 0.95);
-            width: 400px;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            color: white;
+        /* --- FOND ESPACE --- */
+        .space {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000 100%);
+            z-index: -1;
+        }
+
+        /* --- BIENVENUE (3 SECONDES) --- */
+        #welcome {
             text-align: center;
+            animation: fadeOut 0.8s ease-in 3s forwards;
         }
 
-        h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            font-weight: bold;
+        .welcome-text {
+            font-size: 5rem;
+            font-weight: 100;
+            letter-spacing: 20px;
+            background: linear-gradient(90deg, #fff, #0078d4, #fff);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
         }
 
-        input {
+        @keyframes shine { to { background-position: 200%; } }
+        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+        /* --- MENU SELECTION --- */
+        #menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
             width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #444;
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: #393b3d;
-            color: white;
+            max-width: 1200px;
         }
 
-        button {
-            width: 100%;
-            background-color: #393b3d; /* Version grise pour correspondre au design */
-            color: white;
-            padding: 10px;
-            margin: 15px 0;
-            border: 1px solid #fff;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background-color: #4a4d50;
-        }
-
-        .btn-secondary {
-            background-color: #4a4d50;
-            border: none;
-            margin: 5px 0;
-        }
-
-        .forgot-link {
-            display: block;
-            color: #ccc;
+        .item {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
             text-decoration: none;
-            font-size: 14px;
-            margin: 10px 0 20px 0;
-        }
-
-        .forgot-link:hover {
-            text-decoration: underline;
-        }
-
-        .signup-text {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #ddd;
-        }
-
-        .signup-text a {
             color: white;
-            text-decoration: none;
-            font-weight: bold;
+            font-size: 1.5rem;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        hr {
-            border: 0.5px solid #444;
-            margin: 20px 0;
+        /* Focus Souris & TV */
+        .item:hover, .item:focus {
+            background: rgba(0, 120, 212, 0.3);
+            border-color: var(--win-blue);
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(0, 120, 212, 0.5);
+            outline: none;
         }
     </style>
 </head>
 <body>
 
-<div class="login-container">
-    <h2>Connexion à Roblox</h2>
-    
-    <input type="text" placeholder="Identifiant/E-mail/Téléphone">
-    <input type="password" placeholder="Mot de passe">
-    
-    <button>Connexion</button>
-    
-    <a href="#" class="forgot-link">Mot de passe ou nom d'utilisateur oublié ?</a>
-    
-    <hr>
+    <div class="space"></div>
 
-    <button class="btn-secondary">Envoyez-moi un code unique par email</button>
-    <button class="btn-secondary">Connexion rapide</button>
-    
-    <div class="signup-text">
-        Vous n'avez pas de compte ? <a href="#">S'inscrire</a>
+    <div id="welcome">
+        <h1 class="welcome-text">WELCOME</h1>
     </div>
-</div>
 
+    <div id="menu">
+        <h1 style="margin-bottom: 50px; font-weight: 200; letter-spacing: 5px;">SÉLECTION DE CHAPITRE</h1>
+        <div class="grid" id="chapter-grid"></div>
+    </div>
+
+    <script>
+        /* --- CONFIGURATION DES LIENS ICI --- */
+        const mesChapitres = [
+            { nom: "Chapitre 1", url: "https://tropistream.fr/watch/bW92aWU6NjcxOjUwNDk5NWQ0OWEzN2U2MjkzNzQ5N2MyNmYwZDJiYzU3Mjc2NTRkNGZhYzU1OWZkZjcxZDc1ZjljMWRlMTgyYmM?l=VF" },
+            { nom: "Chapitre 2", url: "https://tropistream.fr/watch/bW92aWU6NjcyOjhkN2YyOGUyZTljZDgyOWRhMWJjZTJiMzdjOWUxNzY0YjUxNjQ3NTBiYjA2NTQyZjAyZGZhYjRhMmRjMWUzOTU?l=VF" },
+            { nom: "Chapitre 3", url: "https://tropistream.fr/watch/bW92aWU6NjczOmZmMGM4ZWYxYjE2MGJkM2ViMzc4NmYxMTg2ZDlkYjU3N2YwNWYwYzFhZWYyOTQ5NzMzNzQyNDVkODc5NmRlNDg?l=VF" },
+        ];
+
+        const grid = document.getElementById('chapter-grid');
+        const welcome = document.getElementById('welcome');
+        const menu = document.getElementById('menu');
+
+        // Génération des boutons
+        mesChapitres.forEach((ch, index) => {
+            const a = document.createElement('a');
+            a.href = ch.url;
+            a.className = 'item';
+            a.innerText = ch.nom;
+            a.tabIndex = 0; // Pour la télécommande
+            grid.appendChild(a);
+        });
+
+        // Switch écran
+        setTimeout(() => {
+            welcome.style.display = 'none';
+            menu.style.display = 'flex';
+            setTimeout(() => menu.style.opacity = "1", 50);
+            document.querySelector('.item').focus(); // Focus direct pour TV
+        }, 3800);
+
+        // Navigation Télécommande (Haut, Bas, Gauche, Droite)
+        let currentIdx = 0;
+        const items = document.querySelectorAll('.item');
+
+        document.addEventListener('keydown', (e) => {
+            const cols = Math.floor(grid.offsetWidth / 270); 
+            if (e.key === "ArrowRight") currentIdx = (currentIdx + 1) % items.length;
+            if (e.key === "ArrowLeft") currentIdx = (currentIdx - 1 + items.length) % items.length;
+            if (e.key === "ArrowDown") if (currentIdx + cols < items.length) currentIdx += cols;
+            if (e.key === "ArrowUp") if (currentIdx - cols >= 0) currentIdx -= cols;
+            
+            items[currentIdx].focus();
+        });
+    </script>
 </body>
 </html>
